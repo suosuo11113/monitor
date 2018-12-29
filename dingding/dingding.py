@@ -2,16 +2,22 @@
 #_*_ coding:utf-8 _*_
 import  json
 import requests
-class dingding():
-    def __init__(self,url ,headers):
+import chardet
+from idna import unicode
+from lib import  manage_string
+
+class Dingding():
+    def __init__(self,url,headers):
         self.url = url
         self.HEADERS = headers
-    def post_text(self,String_Msg):
-        String_textMsg = {
-            "msgtype": "text",
-            "text": {
-            "content": 'kind:%s\naverage:%f\nmedian:%f\nQ10:%f\nQ90:%f' % ("Trans", 2.23, 5.78, 99.2, 99.3)
-            }
-        }
-        data = json.dumps(String_textMsg)
-        res = requests.post(self.url, data=data, headers=self.HEADERS)
+    def post_text(self, Msg):
+        dict_textMsg = {'msgtype':'text'}
+        manage_string.dict_u8_to_unicode(Msg)
+        #dict_textMsg["text"] = Msg
+        #print(unicode(dict_textMsg["text"]["title"], "utf-8"))
+        #data = json.dumps(dict_textMsg.decode('UTF-8'))
+        #print(data)
+        #print (chardet.detect(data))
+        #res = requests.post(url=self.url, data=data, headers=self.HEADERS)
+        #print(res.text)
+
